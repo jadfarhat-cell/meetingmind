@@ -1,37 +1,37 @@
-# 🧠 MeetingMind
+# MeetingMind
 
 An AI-powered meeting assistant that automatically transcribes audio, generates intelligent summaries, and extracts actionable items — so you never miss what matters.
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 flowchart TD
-    A[🎙️ Audio Input\nMicrophone / File Upload] --> B[Audio Preprocessor\nNoise Reduction, Chunking]
-    B --> C[Speech-to-Text\nOpenAI Whisper]
-    C --> D[Raw Transcript]
-    
-    D --> E[Speaker Diarization\npyannote.audio]
-    E --> F[Labeled Transcript\nSpeaker A / B / C...]
-    
-    F --> G[LLM Processing\nGPT-4 / Claude / Local LLM]
-    G --> H1[📋 Meeting Summary]
-    G --> H2[✅ Action Items\nOwner + Deadline]
-    G --> H3[🔑 Key Decisions]
-    G --> H4[📊 Topic Segments]
+ A[ Audio Input\nMicrophone / File Upload] --> B[Audio Preprocessor\nNoise Reduction, Chunking]
+ B --> C[Speech-to-Text\nOpenAI Whisper]
+ C --> D[Raw Transcript]
+ 
+ D --> E[Speaker Diarization\npyannote.audio]
+ E --> F[Labeled Transcript\nSpeaker A / B / C...]
+ 
+ F --> G[LLM Processing\nGPT-4 / Claude / Local LLM]
+ G --> H1[ Meeting Summary]
+ G --> H2[ Action Items\nOwner + Deadline]
+ G --> H3[ Key Decisions]
+ G --> H4[ Topic Segments]
 
-    H1 --> I[Report Generator]
-    H2 --> I
-    H3 --> I
-    H4 --> I
-    
-    I --> J{Export Format}
-    J --> K[📄 PDF Report]
-    J --> L[📧 Email Summary]
-    J --> M[🔗 Notion / Confluence]
-    J --> N[📁 Markdown File]
+ H1 --> I[Report Generator]
+ H2 --> I
+ H3 --> I
+ H4 --> I
+ 
+ I --> J{Export Format}
+ J --> K[ PDF Report]
+ J --> L[ Email Summary]
+ J --> M[ Notion / Confluence]
+ J --> N[ Markdown File]
 ```
 
-##  Features
+## Features
 
 - High-accuracy transcription in 50+ languages (Whisper)
 - Automatic speaker diarization — who said what
@@ -41,7 +41,7 @@ flowchart TD
 - Export to PDF, Markdown, Notion, Slack
 - Real-time live transcription mode
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -55,7 +55,7 @@ flowchart TD
 | Task Queue | Celery + Redis |
 | Storage | AWS S3 / Local |
 
-##  How to Run
+## How to Run
 
 ```bash
 # 1. Clone and install
@@ -69,7 +69,7 @@ cp .env.example .env
 # Add your OpenAI API key, database URL, Redis URL
 
 # 3. Start services
-docker-compose up -d   # PostgreSQL + Redis
+docker-compose up -d # PostgreSQL + Redis
 
 # 4. Run backend
 uvicorn backend.main:app --reload --port 8000
@@ -81,22 +81,22 @@ npm run dev --prefix frontend
 python cli.py --input meeting.mp3 --output report.pdf
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 meetingmind/
 ├── backend/
-│   ├── main.py           # FastAPI app
-│   ├── transcriber.py    # Whisper integration
-│   ├── diarizer.py       # Speaker separation
-│   ├── llm_processor.py  # Summary & action items
-│   └── exporter.py       # PDF, Markdown, Notion
+│ ├── main.py # FastAPI app
+│ ├── transcriber.py # Whisper integration
+│ ├── diarizer.py # Speaker separation
+│ ├── llm_processor.py # Summary & action items
+│ └── exporter.py # PDF, Markdown, Notion
 ├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   └── pages/
-│   └── package.json
-├── cli.py                # Command-line interface
+│ ├── src/
+│ │ ├── components/
+│ │ └── pages/
+│ └── package.json
+├── cli.py # Command-line interface
 ├── docker-compose.yml
 ├── requirements.txt
 └── .env.example
