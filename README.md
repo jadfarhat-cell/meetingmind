@@ -31,7 +31,7 @@ flowchart TD
     J --> N[📁 Markdown File]
 ```
 
-## ✨ Features
+##  Features
 
 - High-accuracy transcription in 50+ languages (Whisper)
 - Automatic speaker diarization — who said what
@@ -55,7 +55,7 @@ flowchart TD
 | Task Queue | Celery + Redis |
 | Storage | AWS S3 / Local |
 
-## 🚀 How to Run
+##  How to Run
 
 ```bash
 # 1. Clone and install
