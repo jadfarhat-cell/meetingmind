@@ -4,32 +4,7 @@ An AI-powered meeting assistant that automatically transcribes audio, generates 
 
 ## Architecture
 
-```mermaid
-flowchart TD
- A[ Audio Input\nMicrophone / File Upload] --> B[Audio Preprocessor\nNoise Reduction, Chunking]
- B --> C[Speech-to-Text\nOpenAI Whisper]
- C --> D[Raw Transcript]
- 
- D --> E[Speaker Diarization\npyannote.audio]
- E --> F[Labeled Transcript\nSpeaker A / B / C...]
- 
- F --> G[LLM Processing\nGPT-4 / Claude / Local LLM]
- G --> H1[ Meeting Summary]
- G --> H2[ Action Items\nOwner + Deadline]
- G --> H3[ Key Decisions]
- G --> H4[ Topic Segments]
-
- H1 --> I[Report Generator]
- H2 --> I
- H3 --> I
- H4 --> I
- 
- I --> J{Export Format}
- J --> K[ PDF Report]
- J --> L[ Email Summary]
- J --> M[ Notion / Confluence]
- J --> N[ Markdown File]
-```
+![Architecture Diagram](https://mermaid.ink/img/Zmxvd2NoYXJ0IFRECiBBWyBBdWRpbyBJbnB1dFxuTWljcm9waG9uZSAvIEZpbGUgVXBsb2FkXSAtLT4gQltBdWRpbyBQcmVwcm9jZXNzb3Jcbk5vaXNlIFJlZHVjdGlvbiwgQ2h1bmtpbmddCiBCIC0tPiBDW1NwZWVjaC10by1UZXh0XG5PcGVuQUkgV2hpc3Blcl0KIEMgLS0+IERbUmF3IFRyYW5zY3JpcHRdCiAKIEQgLS0+IEVbU3BlYWtlciBEaWFyaXphdGlvblxucHlhbm5vdGUuYXVkaW9dCiBFIC0tPiBGW0xhYmVsZWQgVHJhbnNjcmlwdFxuU3BlYWtlciBBIC8gQiAvIEMuLi5dCiAKIEYgLS0+IEdbTExNIFByb2Nlc3NpbmdcbkdQVC00IC8gQ2xhdWRlIC8gTG9jYWwgTExNXQogRyAtLT4gSDFbIE1lZXRpbmcgU3VtbWFyeV0KIEcgLS0+IEgyWyBBY3Rpb24gSXRlbXNcbk93bmVyICsgRGVhZGxpbmVdCiBHIC0tPiBIM1sgS2V5IERlY2lzaW9uc10KIEcgLS0+IEg0WyBUb3BpYyBTZWdtZW50c10KCiBIMSAtLT4gSVtSZXBvcnQgR2VuZXJhdG9yXQogSDIgLS0+IEkKIEgzIC0tPiBJCiBINCAtLT4gSQogCiBJIC0tPiBKe0V4cG9ydCBGb3JtYXR9CiBKIC0tPiBLWyBQREYgUmVwb3J0XQogSiAtLT4gTFsgRW1haWwgU3VtbWFyeV0KIEogLS0+IE1bIE5vdGlvbiAvIENvbmZsdWVuY2VdCiBKIC0tPiBOWyBNYXJrZG93biBGaWxlXQ==)
 
 ## Features
 
