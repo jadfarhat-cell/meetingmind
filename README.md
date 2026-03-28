@@ -1,78 +1,85 @@
-# MeetingMind
+# MeetingMind 🧠
 
-An AI-powered meeting assistant that automatically transcribes audio, generates intelligent summaries, and extracts actionable items — so you never miss what matters.
-
-## Architecture
-
-![Architecture Diagram](https://mermaid.ink/svg/Zmxvd2NoYXJ0IFRECiBBWyBBdWRpbyBJbnB1dFxuTWljcm9waG9uZSAvIEZpbGUgVXBsb2FkXSAtLT4gQltBdWRpbyBQcmVwcm9jZXNzb3Jcbk5vaXNlIFJlZHVjdGlvbiwgQ2h1bmtpbmddCiBCIC0tPiBDW1NwZWVjaC10by1UZXh0XG5PcGVuQUkgV2hpc3Blcl0KIEMgLS0-IERbUmF3IFRyYW5zY3JpcHRdCiAKIEQgLS0-IEVbU3BlYWtlciBEaWFyaXphdGlvblxucHlhbm5vdGUuYXVkaW9dCiBFIC0tPiBGW0xhYmVsZWQgVHJhbnNjcmlwdFxuU3BlYWtlciBBIC8gQiAvIEMuLi5dCiAKIEYgLS0-IEdbTExNIFByb2Nlc3NpbmdcbkdQVC00IC8gQ2xhdWRlIC8gTG9jYWwgTExNXQogRyAtLT4gSDFbIE1lZXRpbmcgU3VtbWFyeV0KIEcgLS0-IEgyWyBBY3Rpb24gSXRlbXNcbk93bmVyICsgRGVhZGxpbmVdCiBHIC0tPiBIM1sgS2V5IERlY2lzaW9uc10KIEcgLS0-IEg0WyBUb3BpYyBTZWdtZW50c10KCiBIMSAtLT4gSVtSZXBvcnQgR2VuZXJhdG9yXQogSDIgLS0-IEkKIEgzIC0tPiBJCiBINCAtLT4gSQogCiBJIC0tPiBKe0V4cG9ydCBGb3JtYXR9CiBKIC0tPiBLWyBQREYgUmVwb3J0XQogSiAtLT4gTFsgRW1haWwgU3VtbWFyeV0KIEogLS0-IE1bIE5vdGlvbiAvIENvbmZsdWVuY2VdCiBKIC0tPiBOWyBNYXJrZG93biBGaWxlXQ)
+AI-powered meeting recorder and summarizer built with Electron + React.
 
 ## Features
 
-- High-accuracy transcription in 50+ languages (Whisper)
-- Automatic speaker diarization — who said what
-- AI-generated meeting summaries and highlights
-- Action item extraction with owner and deadline detection
-- Sentiment analysis per speaker
-- Export to PDF, Markdown, Notion, Slack
-- Real-time live transcription mode
+- 🎙️ **Audio Recording** - Capture system/microphone audio with a single click
+- 📝 **Transcription** - Automatic transcription using OpenAI Whisper API
+- 🤖 **AI Summarization** - Claude API generates meeting summaries, action items, and follow-up emails
+- 💾 **Local Storage** - Save meetings to SQLite database with search functionality
+- 📳 **System Tray** - Runs quietly in the background
+- 📋 **Copy to Clipboard** - Easy copy buttons for all generated content
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Language | Python 3.10+ |
-| Transcription | OpenAI Whisper (large-v3) |
-| Diarization | pyannote.audio |
-| LLM | GPT-4 / Claude 3 / Ollama |
-| Backend API | FastAPI |
-| Frontend | React + TailwindCSS |
-| Database | PostgreSQL + SQLAlchemy |
-| Task Queue | Celery + Redis |
-| Storage | AWS S3 / Local |
+- **Electron** - Desktop application framework
+- **React** - UI library
+- **OpenAI Whisper API** - Audio transcription
+- **Anthropic Claude API** - AI summarization
+- **SQLite (better-sqlite3)** - Local database
 
-## How to Run
+## Setup
 
-```bash
-# 1. Clone and install
-git clone https://github.com/jadfarhat-cell/meetingmind.git
-cd meetingmind
-pip install -r requirements.txt
-npm install --prefix frontend
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-# 2. Configure environment
-cp .env.example .env
-# Add your OpenAI API key, database URL, Redis URL
+2. **Set up API keys:**
+   - Get an OpenAI API key from https://platform.openai.com/api-keys
+   - Get an Anthropic API key from https://console.anthropic.com/
+   - Enter them in the app's settings panel on first launch
 
-# 3. Start services
-docker-compose up -d # PostgreSQL + Redis
+3. **Run in development:**
+   ```bash
+   npm start
+   ```
 
-# 4. Run backend
-uvicorn backend.main:app --reload --port 8000
+4. **Build for production:**
+   ```bash
+   npm run dist
+   ```
 
-# 5. Run frontend
-npm run dev --prefix frontend
+## Usage
 
-# 6. Transcribe a file directly
-python cli.py --input meeting.mp3 --output report.pdf
-```
+1. Click "Start Recording" to begin capturing audio
+2. Click "Stop Recording" when your meeting is finished
+3. Wait for transcription and AI analysis to complete
+4. Review the generated summary, action items, and follow-up email
+5. Use copy buttons to transfer content to your clipboard
+6. Access past meetings in the History tab
 
 ## Project Structure
 
 ```
 meetingmind/
-├── backend/
-│ ├── main.py # FastAPI app
-│ ├── transcriber.py # Whisper integration
-│ ├── diarizer.py # Speaker separation
-│ ├── llm_processor.py # Summary & action items
-│ └── exporter.py # PDF, Markdown, Notion
-├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ └── pages/
-│ └── package.json
-├── cli.py # Command-line interface
-├── docker-compose.yml
-├── requirements.txt
-└── .env.example
+├── electron/           # Electron main process
+│   ├── main.js        # Main entry point
+│   └── preload.js     # Preload script for IPC
+├── src/               # React application
+│   ├── components/    # UI components
+│   ├── services/      # Business logic
+│   ├── App.js         # Main app component
+│   └── index.js       # React entry point
+├── public/            # Static assets
+└── package.json       # Dependencies and scripts
 ```
+
+## Next Steps
+
+- [ ] Implement SQLite database integration for meeting history
+- [ ] Add local whisper.cpp support as alternative to API
+- [ ] Add system audio capture (currently microphone only)
+- [ ] Create custom system tray icons
+- [ ] Add export to PDF/Word functionality
+- [ ] Implement meeting templates and customization
+- [ ] Add speaker diarization (who said what)
+
+## Security Notes
+
+⚠️ **Important:** API keys are currently stored in localStorage. For production use, implement secure credential storage using electron-store with encryption or system keychain integration.
+
+## License
+
+MIT

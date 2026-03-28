@@ -1,0 +1,170 @@
+.recorder-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+}
+
+.recorder-card {
+  background: white;
+  border-radius: 16px;
+  padding: 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.recorder-visual {
+  margin-bottom: 30px;
+}
+
+.recording-indicator {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.recording-indicator.active {
+  opacity: 1;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.recording-time {
+  font-size: 48px;
+  font-weight: 300;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+}
+
+.status-text {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+  min-height: 24px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.record-button, .stop-button {
+  padding: 16px 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  min-width: 200px;
+}
+
+.record-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.record-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+}
+
+.stop-button {
+  background: #ef4444;
+  color: white;
+}
+
+.stop-button:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239,68,68,0.4);
+}
+
+.processing-spinner {
+  padding: 16px 40px;
+  font-size: 16px;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.settings-link {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px;
+}
+
+.settings-link:hover {
+  color: #667eea;
+}
+
+.settings-panel {
+  text-align: left;
+}
+
+.settings-panel h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.settings-description {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: monospace;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.save-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.save-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+}
