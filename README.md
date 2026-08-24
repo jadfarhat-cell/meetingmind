@@ -1,32 +1,32 @@
 # MeetingMind
 
-MeetingMind is an Electron and React desktop prototype that records microphone audio, sends it to the OpenAI Whisper API for transcription, and uses the Anthropic Claude API to generate a meeting summary, action items, and a follow-up email draft.
+A desktop prototype that records a meeting from your microphone, transcribes it
+with the OpenAI Whisper API, and asks Anthropic's Claude for a summary, a list of
+action items, and a draft follow-up email. Built with Electron and React.
 
-## Current features
+This is a working prototype, not a production application. Read the limitations
+before relying on it for anything real.
 
-- Microphone recording through the browser MediaRecorder API
-- Whisper API transcription
-- Claude-powered summaries, action items, and follow-up email drafts
-- Local meeting history using sql.js persisted in localStorage
-- Search and deletion of saved meetings
-- Desktop packaging with Electron Builder
+## How it works
 
-## Tech stack
+1. `audioRecorder.js` captures microphone input as WebM through the browser
+   MediaRecorder API.
+2. `transcriptionService.js` uploads that audio to the Whisper API.
+3. `aiService.js` sends the transcript to Claude and parses the structured
+   response.
+4. `databaseService.js` writes the result to a SQLite database running in
+   WebAssembly via sql.js, serialized into localStorage.
+5. React components render the transcript, summary, action items, and email
+   draft, and provide search and deletion over saved meetings.
 
-- Electron
-- React
-- JavaScript
-- OpenAI Whisper API
-- Anthropic Claude API
-- sql.js
+## Requirements
 
-## Architecture
+- Node.js and npm
+- An OpenAI API key with Whisper access
+- An Anthropic API key
 
-1. `AudioRecorder` captures microphone audio as WebM.
-2. `TranscriptionService` sends the audio file to the Whisper API.
-3. `AIService` sends the transcript to Claude for structured analysis.
-4. `DatabaseService` stores results in a browser-based SQLite database serialized to localStorage.
-5. React components display the transcript, summary, action items, email draft, and meeting history.
+Both are paid APIs. Recording without valid keys will fail at the transcription
+step.
 
 ## Run locally
 
@@ -35,34 +35,37 @@ npm install
 npm start
 ```
 
-Enter valid OpenAI and Anthropic API keys in the app settings before recording.
+`npm start` runs the React dev server and waits for it before launching Electron.
+Enter both API keys in the app's settings panel before your first recording.
 
-Build a distributable package with:
+Package a distributable:
 
 ```bash
 npm run dist
 ```
 
-## Project status
+## Limitations
 
-This repository is a functional prototype, not a production-ready application.
+- Microphone capture only. System audio is not captured, so the other side of a
+  call on your speakers will not be recorded.
+- API keys are held in localStorage. That is not encrypted storage, and it is
+  the main thing standing between this prototype and real use. They belong in
+  the OS keychain.
+- No speaker diarization. The transcript is one undifferentiated block of text,
+  so summaries cannot attribute anything to a specific person.
+- No automated tests.
+- Meeting history is stored in localStorage and is tied to the browser profile
+  Electron uses. There is no export and no backup.
+- Every recording costs money on two external APIs, and long meetings cost more.
 
-Current limitations:
+## Possible next steps
 
-- Microphone capture only; system-audio capture is not implemented
-- API keys are stored in localStorage and should be moved to encrypted OS-backed storage before production use
-- No speaker diarization
-- No automated test suite
-- Requires external paid APIs
-
-## Next improvements
-
-- Secure credential storage through the operating-system keychain
-- System-audio capture
-- Automated tests
+- Move credentials to the OS keychain
+- System audio capture
+- A test suite
 - Export to PDF or DOCX
 - Speaker diarization
-- Local transcription option using whisper.cpp
+- Local transcription with whisper.cpp, removing the Whisper API dependency
 
 ## License
 
